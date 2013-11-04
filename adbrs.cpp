@@ -17,7 +17,7 @@ ADB Recovery Screenshot: Takes screenshot of device's screen when in recovery mo
 #include <tchar.h>
 #include <windows.h>
 
-int width = 1088; // Default width + 8BPP offset
+int width = 1088; // Default width + 8 (stride)
 int height = 1920; // Default height
 
 void killAdb() {
