@@ -16,9 +16,17 @@ ADB Recovery Screenshot: Takes screenshot of device's screen when in recovery mo
 #include <iostream>
 #include <tchar.h>
 #include <windows.h>
+#include <sstream>
 
 int width = 1088; // Default width + 8 (stride)
 int height = 1920; // Default height
+
+// Convert integer to string type using stringstream
+std::string str2int(int num) {
+	std::stringstream ss;
+	ss << num;
+	return ss.str();
+}
 
 void killAdb() {
 	// Kill ADB, just in case...
@@ -98,7 +106,7 @@ void framebufferToPNG(int w, int h) {
 	std::string cmdp1 = "ffmpeg -vframes 1 -f rawvideo -pix_fmt rgba -s";
 	std::string cmdp2 = "-i fb0 screenshot.png";
 	std::string fcmd;
-	fcmd = cmdp1.append("" + w).append("x" + h).append("").append(cmdp2);
+	fcmd = cmdp1.append(" " + str2int(w)).append("x" + str2int(h)).append(" ").append(cmdp2);
 	LPTSTR szCmdLine = _tcsdup(TEXT(fcmd.c_str()));
 	ZeroMemory(&startupinfo, sizeof(startupinfo));
 	startupinfo.cb = sizeof(startupinfo);
@@ -118,6 +126,8 @@ void framebufferToPNG(int w, int h) {
 
 
 }
+
+
 
 int _tmain(int argc, _TCHAR* argv[])
 {
